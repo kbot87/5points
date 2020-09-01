@@ -24,10 +24,8 @@
 
 @section('js')
     <script>
-
-            let vhome = 'home';
-            console.log(vhome);
-
+        let vhome = 'home';
+        console.log(vhome);
     </script>
 @endsection
 
