@@ -64,6 +64,21 @@
     </style>
 </head>
 <body>
+<ul class="navbar-nav ml-auto">
+    @foreach ($languages as $locale)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ $locale->url }}"
+               @if (app()->getLocale() == $locale) style="font-weight: bold; text-decoration: underline"
+                @endif>
+                @if(!empty($locale->flag) && $locale->flag != null)
+                    <img src="{{ url('storage/'.$locale->flag) }}" alt="">
+                    @else
+                    {{ strtoupper($locale->code) }}
+                @endif
+            </a>
+        </li>
+    @endforeach
+</ul>
 @yield('content')
 <script src="{{ asset('js/main.js') }}"></script>
 @yield('js')

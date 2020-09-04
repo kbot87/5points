@@ -13,29 +13,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(
-    [
-        'prefix' => '{locale}',
-        'where' => ['locale' => '[a-zA-Z]{2}'],
-        'middleware' => 'setLocale'
-    ],
-    function () {
-        Route::get('/', function () {
-            return view('welcome');
-        });
 
-        Auth::routes();
-
-        Route::get('/home', 'HomeController@index')->name('home');
-        Route::get('/blog', 'BlogController@getArticles')->name('getArticles');
-    }
-);
-// Add a Redirect route outside the group
 Route::get('/', function () {
-    return redirect(app()->getLocale());
-});
+    return view('welcome');
+})->name('welcome');
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/blog', 'BlogController@getArticles')->name('getArticles');
+Route::get('/blog/{title}', 'BlogController@getArticle')->name('getArticle');
+// Add a Redirect route outside the group
 
 
 
