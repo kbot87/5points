@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2020 г., 16:19
+-- Время создания: Сен 04 2020 г., 19:21
 -- Версия сервера: 5.7.25
 -- Версия PHP: 7.2.10
 
@@ -31,11 +31,19 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `main_page` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `main_image` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `main_page` int(11) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '100',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `main_image`, `main_page`, `sort`, `created_at`, `updated_at`) VALUES
+(1, '', 1, 100, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -55,6 +63,14 @@ CREATE TABLE `article_descriptions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `article_descriptions`
+--
+
+INSERT INTO `article_descriptions` (`article_id`, `language_id`, `title`, `description`, `meta_title`, `meta_description`, `keys`, `created_at`, `updated_at`) VALUES
+(1, 1, 'eng', 'sefwefesfsefsef', 'sesese', 'seesesf', 'fsefsef sefsefsef', NULL, NULL),
+(1, 2, 'рус', 'фівафіваіфва', 'іфва', 'фіва', 'фіваіфва фіва фіва', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -200,9 +216,20 @@ CREATE TABLE `languages` (
   `language` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `flag` text COLLATE utf8mb4_unicode_ci,
+  `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `languages`
+--
+
+INSERT INTO `languages` (`id`, `language`, `code`, `flag`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'English', 'en', 'flags\\usa.png', 1, NULL, NULL),
+(2, 'Russian', 'ru', 'flags\\russian.png', 1, NULL, NULL),
+(3, 'Dutch', 'de', 'flags\\german.png', 1, NULL, NULL),
+(4, 'Israel', 'he', 'flags\\israel.png', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -724,7 +751,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT для таблицы `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `contacts`
@@ -754,7 +781,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT для таблицы `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `menus`
