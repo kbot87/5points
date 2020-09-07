@@ -1,23 +1,25 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    @include('common.navigation')
+    @include('common.header')
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    @include('common.components.home-banner-area')
+    @include('common.components.brand-area')
+    @include('common.components.service-area')
+    @include('common.components.video-sec-area')
+    @include('common.components.portfolio-area')
+    @include('common.components.team-area')
+    @include('common.components.testimonial-area')
+    @include('common.components.cta-area')
+    @include('common.components.blog-area')
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    @include('common.footer')
 @endsection
+
+@section('js')
+    <script>
+        let flag = 'home';
+        console.log(flag);
+    </script>
+@endsection
+
