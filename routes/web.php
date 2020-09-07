@@ -22,8 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/blog', 'BlogController@getArticles')->name('getArticles');
-Route::get('/blog/{title}', 'BlogController@getArticle')->name('getArticle');
+Route::get('/about-us', 'PagesController@aboutUs')->name('about-us');
+Route::get('/contact-us', 'PagesController@contact')->name('contact-us');
+Route::get('/blog', 'BlogController@getArticles')->name('article-list');
+Route::get('/blog/{slug}', 'BlogController@getArticle')->name('getArticle');
 // Add a Redirect route outside the group
 
 

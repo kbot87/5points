@@ -59,8 +59,19 @@ class Articles extends Model
         return $articles;
     }
 
-    public function getArticleByTitle($title)
+    public function getArticleBySlug($slug)
     {
+        $languageId = Language::getLanguageId(app()->getLocale());
+        $article = DB::table('articles')
+            ->select([
+                'articles.slug',
+                'articles.id'
+            ])
+            ->selectRaw('SELECT title, meta_title FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId->id)
+            ->where('articles.slug', $slug)
+            ->leftJoin('article_images', 'article_description.article_id', 'articles.id')
+            ->first();
 
+        return $article;
     }
 }

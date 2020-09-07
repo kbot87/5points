@@ -12,15 +12,15 @@ class BlogController extends Controller
         $blog = new Articles();
         $articles = $blog->getArticles();
 
-        dd($articles);
+        return view('blog', compact('articles'));
     }
 
-    public function getArticle($title)
+    public function getArticle($slug)
     {
         $blog = new Articles();
-        $articles = $blog->getArticleByTitle($title);
+        $article = $blog->getArticleBySlug($slug);
 
-        dd($articles);
+        return view('article', compact('article'));
     }
 
 
