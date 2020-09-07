@@ -7,7 +7,6 @@
 
         @include('common.components.banner_area')
         @include('common.components.blog_article')
-        @include('common.components.blog.article-post')
 
         @include('common.footer')
     </div>

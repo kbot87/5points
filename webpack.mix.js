@@ -23,6 +23,10 @@ mix.copy('resources/js/jquery.sticky.js', 'public/js/jquery.sticky.js');
 mix.copy('resources/js/hexagons.min.js', 'public/js/hexagons.min.js');
 mix.copy('resources/js/jquery.counterup.min.js', 'public/js/jquery.counterup.min.js');
 mix.copy('resources/js/waypoints.min.js', 'public/js/waypoints.min.js');
+mix.copy('resources/js/jquery.form.js', 'public/js/jquery.form.js');
+mix.copy('resources/js/jquery.validate.min.js', 'public/js/jquery.validate.min.js');
+mix.copy('resources/js/contact.js', 'public/js/contact.js');
+mix.copy('resources/js/gmaps.min.js', 'public/js/gmaps.min.js');
 
 mix.js('resources/js/app.js', 'public/js')
 /*  .js('resources/js/vendor/jquery-2.2.4.min.js', 'public/js/vendor/jquery-2.2.4.min.js')

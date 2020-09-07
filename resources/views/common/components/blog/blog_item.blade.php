@@ -1,3 +1,4 @@
+{{--{{dd($articles)}}--}}
 @foreach($articles as $article)
     <article class="row blog_item">
         <div class="col-md-3">
@@ -31,7 +32,6 @@
                     <a href="{{ route('getArticle', $article->slug, app()->getLocale()) }}" class="blog_btn">View More</a>
                 </div>
             </div>
-
 
         </div>
     </article>
