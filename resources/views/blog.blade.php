@@ -5,7 +5,7 @@
         @include('common.navigation')
         @include('common.header')
 
-        @include('common.components.brand-area')
+        @include('common.components.banner_area')
         @include('common.components.blog_catalog')
 
         @include('common.footer')
