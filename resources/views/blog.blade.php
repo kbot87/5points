@@ -6,7 +6,7 @@
         @include('common.header')
 
         @include('common.components.brand-area')
-        @include('common.components.page_blog_area')
+        @include('common.components.blog_catalog')
 
         @include('common.footer')
     </div>
