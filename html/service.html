@@ -30,13 +30,13 @@
 
 <div class="side_menu">
     <div class="logo">
-        <a href="index.html">
+        <a href="{{ route('home', app()->getLocale() ) }}">
             <img src="img/logo.png" alt="">
         </a>
     </div>
     <ul class="list menu-left">
         <li>
-            <a href="index.html">Home</a>
+            <a href="{{ route('home', app()->getLocale() ) }}">Home</a>
         </li>
         <li>
             <a href="about-us.html">About</a>
@@ -100,7 +100,7 @@
         <div class="container">
             <div class="banner_content text-left">
                 <div class="page_link">
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('home', app()->getLocale() ) }}">Home</a>
                     <a href="service.html">Service</a>
                 </div>
                 <h2>Our Services</h2>
@@ -238,7 +238,7 @@
                     <h6>Navigation Links</h6>
                     <div class="row">
                         <ul class="col footer-nav">
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="{{ route('home', app()->getLocale() ) }}">Home</a></li>
                             <li><a href="services.html">Services</a></li>
                             <li><a href="project.html">Project</a></li>
                         </ul>
