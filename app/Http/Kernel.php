@@ -23,7 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 
 
-        \App\Http\Middleware\localeMiddleware::class,
+        \App\Http\Middleware\LocaleMiddleware::class,
     ];
 
     /**
