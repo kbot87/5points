@@ -32,10 +32,16 @@ class Articles extends Model
             ->select([
                 'articles.main_image',
                 'articles.id',
-                'article_images.path'
-            ])
-            ->selectRaw('SELECT title, description, meta_title, meta_description, keys FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId->id)
+                'article_images.path',
+                'article_descriptions.title',
+                'article_descriptions.description',
+                'article_descriptions.meta_title',
+                'article_descriptions.meta_description',
+                'article_descriptions.keys'
+                ])
             ->leftJoin('article_images', 'articles.id', 'article_images.article_id')
+            ->leftJoin('article_descriptions', 'articles.id', 'article_descriptions.article_id')
+            ->where('article_descriptions.language_id', $languageId)
             ->orderBy('articles.sort')
             ->get();
 
@@ -52,7 +58,7 @@ class Articles extends Model
                 'articles.id',
                 'article_images.path'
             ])
-            ->selectRaw('SELECT title, meta_title FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId->id)
+            ->selectRaw('SELECT title, meta_title FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId)
             ->orderBy('articles.sort')
             ->get();
 
@@ -67,7 +73,7 @@ class Articles extends Model
                 'articles.slug',
                 'articles.id'
             ])
-            ->selectRaw('SELECT title, meta_title FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId->id)
+            ->selectRaw('SELECT title, meta_title FROM article_descriptions WHERE article_id = articles.id AND language_id = '.$languageId)
             ->where('articles.slug', $slug)
             ->leftJoin('article_images', 'article_description.article_id', 'articles.id')
             ->first();

@@ -11,7 +11,7 @@ class BlogController extends Controller
     {
         $blog = new Articles();
         $articles = $blog->getArticles();
-
+dd($articles);
         return view('blog', compact('articles'));
     }
 
