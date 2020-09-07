@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 04 2020 г., 19:21
+-- Время создания: Сен 07 2020 г., 11:59
 -- Версия сервера: 5.7.25
 -- Версия PHP: 7.2.10
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `main_image` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `main_page` int(11) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '100',
@@ -42,8 +43,9 @@ CREATE TABLE `articles` (
 -- Дамп данных таблицы `articles`
 --
 
-INSERT INTO `articles` (`id`, `main_image`, `main_page`, `sort`, `created_at`, `updated_at`) VALUES
-(1, '', 1, 100, NULL, NULL);
+INSERT INTO `articles` (`id`, `slug`, `main_image`, `main_page`, `sort`, `created_at`, `updated_at`) VALUES
+(1, '', '', 1, 100, NULL, NULL),
+(3, 'news-one', '[\"articles\\\\September2020\\\\RVkZ0TTGzAgiBEaMpLZb.jpg\"]', 1, 111, '2020-09-07 05:29:43', '2020-09-07 05:29:43');
 
 -- --------------------------------------------------------
 
@@ -53,6 +55,7 @@ INSERT INTO `articles` (`id`, `main_image`, `main_page`, `sort`, `created_at`, `
 
 DROP TABLE IF EXISTS `article_descriptions`;
 CREATE TABLE `article_descriptions` (
+  `id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -68,9 +71,9 @@ CREATE TABLE `article_descriptions` (
 -- Дамп данных таблицы `article_descriptions`
 --
 
-INSERT INTO `article_descriptions` (`article_id`, `language_id`, `title`, `description`, `meta_title`, `meta_description`, `keys`, `created_at`, `updated_at`) VALUES
-(1, 1, 'eng', 'sefwefesfsefsef', 'sesese', 'seesesf', 'fsefsef sefsefsef', NULL, NULL),
-(1, 2, 'рус', 'фівафіваіфва', 'іфва', 'фіва', 'фіваіфва фіва фіва', NULL, NULL);
+INSERT INTO `article_descriptions` (`id`, `article_id`, `language_id`, `title`, `description`, `meta_title`, `meta_description`, `keys`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 'eng', 'sefwefesfsefsef', 'sesese', 'seesesf', 'fsefsef sefsefsef', NULL, '2020-09-07 05:53:24'),
+(2, 3, 2, 'рус', 'фівафіваіфва', 'іфва', 'фіва', 'фіваіфва фіва фіва', NULL, '2020-09-07 05:53:35');
 
 -- --------------------------------------------------------
 
@@ -80,11 +83,19 @@ INSERT INTO `article_descriptions` (`article_id`, `language_id`, `title`, `descr
 
 DROP TABLE IF EXISTS `article_images`;
 CREATE TABLE `article_images` (
+  `id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
   `path` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `article_images`
+--
+
+INSERT INTO `article_images` (`id`, `article_id`, `path`, `created_at`, `updated_at`) VALUES
+(3, 3, '[\"article-images\\\\September2020\\\\od2CyngPtS8hvFwGlSDw.jpg\"]', '2020-09-07 05:16:00', '2020-09-07 05:57:12');
 
 -- --------------------------------------------------------
 
@@ -152,7 +163,42 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (18, 3, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 3),
 (19, 3, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 4),
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
-(21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9);
+(21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9),
+(22, 6, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(23, 6, 'main_image', 'multiple_images', 'Main Image', 1, 1, 1, 1, 1, 1, '{}', 2),
+(24, 6, 'main_page', 'checkbox', 'Main Page', 1, 1, 1, 1, 1, 1, '{}', 3),
+(25, 6, 'sort', 'number', 'Sort', 1, 1, 1, 1, 1, 1, '{}', 4),
+(26, 6, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 5),
+(27, 6, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 6),
+(32, 8, 'article_id', 'number', 'Article Id', 1, 1, 1, 1, 1, 1, '{}', 1),
+(33, 8, 'path', 'multiple_images', 'Path', 1, 1, 1, 1, 1, 1, '{}', 2),
+(34, 8, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 3),
+(35, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
+(36, 10, 'article_id', 'number', 'Article Id', 1, 1, 1, 1, 1, 1, '{}', 2),
+(37, 10, 'language_id', 'number', 'Language Id', 1, 1, 1, 1, 1, 1, '{}', 3),
+(38, 10, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 4),
+(39, 10, 'description', 'text', 'Description', 1, 1, 1, 1, 1, 1, '{}', 5),
+(40, 10, 'meta_title', 'text', 'Meta Title', 1, 1, 1, 1, 1, 1, '{}', 6),
+(41, 10, 'meta_description', 'text', 'Meta Description', 1, 1, 1, 1, 1, 1, '{}', 7),
+(42, 10, 'keys', 'text', 'Keys', 1, 1, 1, 1, 1, 1, '{}', 8),
+(43, 10, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 9),
+(44, 10, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10),
+(45, 6, 'article_hasone_article_description_relationship', 'relationship', 'article_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleDescriptions\",\"table\":\"article_descriptions\",\"type\":\"hasOne\",\"column\":\"article_id\",\"key\":\"article_id\",\"label\":\"article_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
+(46, 6, 'article_hasone_article_image_relationship', 'relationship', 'article_images', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleImages\",\"table\":\"article_images\",\"type\":\"hasMany\",\"column\":\"article_id\",\"key\":\"article_id\",\"label\":\"article_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 8),
+(47, 8, 'article_image_belongsto_article_relationship', 'relationship', 'articles', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Articles\",\"table\":\"articles\",\"type\":\"belongsTo\",\"column\":\"article_id\",\"key\":\"id\",\"label\":\"slug\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 5),
+(48, 10, 'article_description_belongsto_article_relationship', 'relationship', 'articles', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Articles\",\"table\":\"articles\",\"type\":\"belongsTo\",\"column\":\"article_id\",\"key\":\"id\",\"label\":\"slug\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 11),
+(49, 10, 'article_description_belongsto_language_relationship', 'relationship', 'languages', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Language\",\"table\":\"languages\",\"type\":\"belongsTo\",\"column\":\"language_id\",\"key\":\"id\",\"label\":\"language\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12),
+(50, 11, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(51, 11, 'language', 'text', 'Language', 1, 1, 1, 1, 1, 1, '{}', 2),
+(52, 11, 'code', 'text', 'Code', 1, 1, 1, 1, 1, 1, '{}', 3),
+(53, 11, 'flag', 'image', 'Flag', 0, 1, 1, 1, 1, 1, '{}', 4),
+(54, 11, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 1, 1, '{}', 5),
+(55, 11, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 6),
+(56, 11, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
+(57, 11, 'language_hasmany_article_description_relationship', 'relationship', 'article_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleDescriptions\",\"table\":\"article_descriptions\",\"type\":\"hasMany\",\"column\":\"language_id\",\"key\":\"id\",\"label\":\"id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 8),
+(58, 6, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 2),
+(59, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(60, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +232,11 @@ CREATE TABLE `data_types` (
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
-(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41');
+(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
+(6, 'articles', 'articles', 'Articles', 'Articles', NULL, 'App\\Articles', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:54:10', '2020-09-07 05:58:18'),
+(8, 'article_images', 'article-images', 'Article Image', 'Article Images', NULL, 'App\\ArticleImages', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:56:41', '2020-09-07 05:57:58'),
+(10, 'article_descriptions', 'article-descriptions', 'Article Description', 'Article Descriptions', NULL, 'App\\ArticleDescriptions', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:58:05', '2020-09-07 05:51:54'),
+(11, 'languages', 'languages', 'Language', 'Languages', NULL, 'App\\Language', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 05:03:17', '2020-09-07 05:53:12');
 
 -- --------------------------------------------------------
 
@@ -226,7 +276,7 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `language`, `code`, `flag`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'English', 'en', 'flags\\usa.png', 1, NULL, NULL),
+(1, 'English', 'en', 'flags\\usa.png', 1, '2020-09-07 08:25:00', '2020-09-07 05:25:37'),
 (2, 'Russian', 'ru', 'flags\\russian.png', 1, NULL, NULL),
 (3, 'Dutch', 'de', 'flags\\german.png', 1, NULL, NULL),
 (4, 'Israel', 'he', 'flags\\israel.png', 1, NULL, NULL);
@@ -281,16 +331,20 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.media.index', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 4, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.media.index', NULL),
 (3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.users.index', NULL),
 (4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2020-09-01 10:07:41', '2020-09-01 10:07:41', NULL, NULL),
-(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 10, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.menus.index', NULL),
-(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 11, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.database.index', NULL),
-(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 12, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.compass.index', NULL),
-(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 13, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.settings.index', NULL),
-(11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 13, '2020-09-01 10:07:41', '2020-09-01 10:07:41', 'voyager.hooks', NULL);
+(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 5, '2020-09-01 10:07:41', '2020-09-07 05:21:28', NULL, NULL),
+(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.menus.index', NULL),
+(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.database.index', NULL),
+(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.compass.index', NULL),
+(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.bread.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 6, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.settings.index', NULL),
+(11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 5, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.hooks', NULL),
+(12, 1, 'Articles', '', '_self', NULL, '#000000', NULL, 9, '2020-09-07 04:54:11', '2020-09-07 05:23:31', 'voyager.articles.index', 'null'),
+(14, 1, 'Article Images', '', '_self', NULL, NULL, NULL, 8, '2020-09-07 04:56:41', '2020-09-07 05:23:31', 'voyager.article-images.index', NULL),
+(15, 1, 'Article Descriptions', '', '_self', NULL, NULL, NULL, 7, '2020-09-07 04:58:05', '2020-09-07 05:23:30', 'voyager.article-descriptions.index', NULL),
+(16, 1, 'Languages', '', '_self', NULL, NULL, NULL, 10, '2020-09-07 05:03:17', '2020-09-07 05:23:31', 'voyager.languages.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -400,7 +454,27 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (23, 'edit_settings', 'settings', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
 (24, 'add_settings', 'settings', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
 (25, 'delete_settings', 'settings', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
-(26, 'browse_hooks', NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41');
+(26, 'browse_hooks', NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
+(27, 'browse_articles', 'articles', '2020-09-07 04:54:10', '2020-09-07 04:54:10'),
+(28, 'read_articles', 'articles', '2020-09-07 04:54:10', '2020-09-07 04:54:10'),
+(29, 'edit_articles', 'articles', '2020-09-07 04:54:10', '2020-09-07 04:54:10'),
+(30, 'add_articles', 'articles', '2020-09-07 04:54:10', '2020-09-07 04:54:10'),
+(31, 'delete_articles', 'articles', '2020-09-07 04:54:10', '2020-09-07 04:54:10'),
+(37, 'browse_article_images', 'article_images', '2020-09-07 04:56:41', '2020-09-07 04:56:41'),
+(38, 'read_article_images', 'article_images', '2020-09-07 04:56:41', '2020-09-07 04:56:41'),
+(39, 'edit_article_images', 'article_images', '2020-09-07 04:56:41', '2020-09-07 04:56:41'),
+(40, 'add_article_images', 'article_images', '2020-09-07 04:56:41', '2020-09-07 04:56:41'),
+(41, 'delete_article_images', 'article_images', '2020-09-07 04:56:41', '2020-09-07 04:56:41'),
+(42, 'browse_article_descriptions', 'article_descriptions', '2020-09-07 04:58:05', '2020-09-07 04:58:05'),
+(43, 'read_article_descriptions', 'article_descriptions', '2020-09-07 04:58:05', '2020-09-07 04:58:05'),
+(44, 'edit_article_descriptions', 'article_descriptions', '2020-09-07 04:58:05', '2020-09-07 04:58:05'),
+(45, 'add_article_descriptions', 'article_descriptions', '2020-09-07 04:58:05', '2020-09-07 04:58:05'),
+(46, 'delete_article_descriptions', 'article_descriptions', '2020-09-07 04:58:05', '2020-09-07 04:58:05'),
+(47, 'browse_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
+(48, 'read_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
+(49, 'edit_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
+(50, 'add_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
+(51, 'delete_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17');
 
 -- --------------------------------------------------------
 
@@ -420,6 +494,7 @@ CREATE TABLE `permission_role` (
 
 INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 3),
 (2, 1),
 (3, 1),
 (4, 1),
@@ -444,7 +519,47 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (23, 1),
 (24, 1),
 (25, 1),
-(26, 1);
+(26, 1),
+(27, 1),
+(27, 3),
+(28, 1),
+(28, 3),
+(29, 1),
+(29, 3),
+(30, 1),
+(30, 3),
+(31, 1),
+(31, 3),
+(37, 1),
+(37, 3),
+(38, 1),
+(38, 3),
+(39, 1),
+(39, 3),
+(40, 1),
+(40, 3),
+(41, 1),
+(41, 3),
+(42, 1),
+(42, 3),
+(43, 1),
+(43, 3),
+(44, 1),
+(44, 3),
+(45, 1),
+(45, 3),
+(46, 1),
+(46, 3),
+(47, 1),
+(47, 3),
+(48, 1),
+(48, 3),
+(49, 1),
+(49, 3),
+(50, 1),
+(50, 3),
+(51, 1),
+(51, 3);
 
 -- --------------------------------------------------------
 
@@ -511,7 +626,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'Administrator', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
-(2, 'user', 'Normal User', '2020-09-01 10:07:41', '2020-09-01 10:07:41');
+(2, 'user', 'Normal User', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
+(3, 'Moderator', 'Moderator', '2020-09-07 05:04:13', '2020-09-07 05:04:13');
 
 -- --------------------------------------------------------
 
@@ -591,9 +707,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Kykyka', 'e.korj87@gmail.com', 'users/default.png', NULL, '$2y$10$w5Y.aNT3fTykoPqlW1jHkOJ5n2aDk59mLARc7ez7c4RpMKBFDWF3m', NULL, NULL, '2020-09-01 10:09:03', '2020-09-01 10:09:03'),
+(1, 1, 'Kykyka', 'e.korj87@gmail.com', 'users/default.png', NULL, '$2y$10$w5Y.aNT3fTykoPqlW1jHkOJ5n2aDk59mLARc7ez7c4RpMKBFDWF3m', 'hr91CzZw1JDLxUvbmlKh5ZDv2FIzWLZgsTL3EDzoTR6ajSCVwCIjKqMto0yu', NULL, '2020-09-01 10:09:03', '2020-09-01 10:09:03'),
 (2, 1, 'Kostyan', 'botvinov1m@gmail.com', 'users/default.png', NULL, '$2y$10$AkeT4M3tNW0E/1Z/W8qPnu5ssvh4R/89Oq3OG5EDqV0vlWu.JE4Lm', NULL, NULL, '2020-09-01 10:10:00', '2020-09-01 10:10:00'),
-(3, 1, 'Stasyan', 'green.kivi91@gmail.com', 'users/default.png', NULL, '$2y$10$Sds8OiclPL0N15QCHa9ZDOTUHp3o2WzLfkdYcxgS3mM8BFzVBDCaK', NULL, NULL, '2020-09-01 10:19:10', '2020-09-01 10:19:10');
+(3, 1, 'Stasyan', 'green.kivi91@gmail.com', 'users/default.png', NULL, '$2y$10$Sds8OiclPL0N15QCHa9ZDOTUHp3o2WzLfkdYcxgS3mM8BFzVBDCaK', NULL, NULL, '2020-09-01 10:19:10', '2020-09-01 10:19:10'),
+(4, 3, 'Moder', 'moderator@gmail.com', 'users/default.png', NULL, '$2y$10$6w.Solv1UhW7lNC7ubp.8uSKwSxP9DxR/Euc44Lk0aem71qrWaPn2', NULL, '{\"locale\":\"ru\"}', '2020-09-07 05:04:58', '2020-09-07 05:04:58');
 
 -- --------------------------------------------------------
 
@@ -617,6 +734,18 @@ CREATE TABLE `user_roles` (
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `articles_id_index` (`id`);
+
+--
+-- Индексы таблицы `article_descriptions`
+--
+ALTER TABLE `article_descriptions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `article_images`
+--
+ALTER TABLE `article_images`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `contacts`
@@ -751,7 +880,19 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT для таблицы `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `article_descriptions`
+--
+ALTER TABLE `article_descriptions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `article_images`
+--
+ALTER TABLE `article_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `contacts`
@@ -763,13 +904,13 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT для таблицы `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT для таблицы `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `failed_jobs`
@@ -793,7 +934,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT для таблицы `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `migrations`
@@ -805,7 +946,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT для таблицы `portfolios`
@@ -817,7 +958,7 @@ ALTER TABLE `portfolios`
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `settings`
@@ -835,7 +976,7 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

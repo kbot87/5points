@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Articles;
+use App\Portfolio;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $blog = new Articles();
+        $portfolio = new Portfolio();
+
+        $articles = $blog->getMainPageArticles();
+        $portfolios = $portfolio->getPortfolio();
+
         return view('home');
     }
 }

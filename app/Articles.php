@@ -13,6 +13,16 @@ class Articles extends Model
         return $this->belongsTo('App\Blog');
     }
 
+    public function description()
+    {
+        return $this->hasMany('App\ArticleDescriptions');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\ArticleImages');
+    }
+
 
     public function getArticles()
     {
