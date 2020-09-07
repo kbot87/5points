@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -40,11 +42,19 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map()
+//    public function map()
+//    {
+//        $this->mapApiRoutes();
+//
+//        $this->mapWebRoutes();
+//
+//        //
+//    }
+    public function map(Request $request)
     {
         $this->mapApiRoutes();
 
-        $this->mapWebRoutes();
+        $this->mapWebRoutes($request);
 
         //
     }
@@ -56,11 +66,31 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+//    protected function mapWebRoutes()
+//    {
+//        Route::middleware('web')
+//            ->namespace($this->namespace)
+//            ->group(base_path('routes/web.php'));
+//    }
+
+    protected function mapWebRoutes(Request $request)
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+        $languages = DB::table('languages')->select([
+            'code'
+        ])->get()->pluck('code')->toArray();
+        if(in_array($request->segment(1), $languages)){
+            $locale = $request->segment(1);
+        }else{
+            $locale = null;
+        }
+
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'prefix' => $locale
+        ], function ($router) {
+            require base_path('routes/web.php');
+        });
     }
 
     /**

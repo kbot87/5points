@@ -16,11 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/blog', 'BlogController@getArticles')->name('getArticles');
+Route::get('/blog/{title}', 'BlogController@getArticle')->name('getArticle');
+// Add a Redirect route outside the group
+
 
 
 Route::group(['prefix' => 'admin'], function () {
