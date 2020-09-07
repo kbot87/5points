@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class Language extends Model
 {
+    public function articleDescriptions()
+    {
+        return $this->hasMany('App\ArticleDescriptions');
+    }
+
     static function getLanguageId($locale)
     {
         $languageId = DB::table('languages')
