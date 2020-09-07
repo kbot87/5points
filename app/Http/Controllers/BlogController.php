@@ -20,7 +20,7 @@ class BlogController extends Controller
         $blog = new Articles();
         $article = $blog->getArticleBySlug($slug);
 
-        return view('blog-article', compact('article'));
+        return view('test', compact('article'));
     }
 
 
