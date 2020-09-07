@@ -1,31 +1,25 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home', app()->getLocale() )}}">Home</a>
-                @else
-                    <a href="{{ route('login', app()->getLocale() )}}">Login</a>
+    @include('common.navigation')
+    @include('common.header')
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register', app()->getLocale() )}}">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
+    @include('common.components.home-banner-area')
+    @include('common.components.brand-area')
+    @include('common.components.service-area')
+    @include('common.components.video-sec-area')
+    @include('common.components.portfolio-area')
+    @include('common.components.team-area')
+    @include('common.components.testimonial-area')
+    @include('common.components.cta-area')
+    @include('common.components.blog-area')
 
-        <div class="content">
-            @include('common.header')
-            @include('common.navigation')
-        </div>
-    </div>
+    @include('common.footer')
 @endsection
 
 @section('js')
     <script>
-        let vhome = 'home';
-        console.log(vhome);
+        let flag = 'welcome';
+        console.log(flag);
     </script>
 @endsection
-

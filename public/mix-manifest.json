@@ -1,5 +1,24 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/main.js": "/js/main.js"
+    "/js/main.js": "/js/main.js",
+    "/js/vendor/jquery-2.2.4.min.js": "/js/vendor/jquery-2.2.4.min.js",
+    "/js/vendor/bootstrap.min.js": "/js/vendor/bootstrap.min.js",
+    "/js/jquery.ajaxchimp.min.js": "/js/jquery.ajaxchimp.min.js",
+    "/js/jquery.magnific-popup.min.js": "/js/jquery.magnific-popup.min.js",
+    "/js/parallax.min.js": "/js/parallax.min.js",
+    "/js/owl.carousel.min.js": "/js/owl.carousel.min.js",
+    "/js/jquery.nice-select.min.js": "/js/jquery.nice-select.min.js",
+    "/js/jquery.sticky.js": "/js/jquery.sticky.js",
+    "/js/hexagons.min.js": "/js/hexagons.min.js",
+    "/js/jquery.counterup.min.js": "/js/jquery.counterup.min.js",
+    "/js/waypoints.min.js": "/js/waypoints.min.js",
+    "/css/linearicons.css": "/css/linearicons.css",
+    "/css/font-awesome.min.css": "/css/font-awesome.min.css",
+    "/css/bootstrap.css": "/css/bootstrap.css",
+    "/css/magnific-popup.css": "/css/magnific-popup.css",
+    "/css/owl.carousel.css": "/css/owl.carousel.css",
+    "/css/hexagons.min.css": "/css/hexagons.min.css",
+    "/css/nice-select.css": "/css/nice-select.css",
+    "/css/main.css": "/css/main.css"
 }
