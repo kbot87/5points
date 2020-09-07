@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 07 2020 г., 11:59
+-- Время создания: Сен 07 2020 г., 18:23
 -- Версия сервера: 5.7.25
 -- Версия PHP: 7.2.10
 
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `main_image` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `main_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `main_page` int(11) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '100',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -44,8 +44,7 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`id`, `slug`, `main_image`, `main_page`, `sort`, `created_at`, `updated_at`) VALUES
-(1, '', '', 1, 100, NULL, NULL),
-(3, 'news-one', '[\"articles\\\\September2020\\\\RVkZ0TTGzAgiBEaMpLZb.jpg\"]', 1, 111, '2020-09-07 05:29:43', '2020-09-07 05:29:43');
+(3, 'news-one', 'articles\\September2020\\wkZCkH808pG50MPX6asA.jpg', 1, 111, '2020-09-07 05:29:00', '2020-09-07 11:38:54');
 
 -- --------------------------------------------------------
 
@@ -60,6 +59,8 @@ CREATE TABLE `article_descriptions` (
   `language_id` int(11) NOT NULL,
   `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description2` varchar(2550) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description3` varchar(2550) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_title` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `meta_description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `keys` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -71,9 +72,9 @@ CREATE TABLE `article_descriptions` (
 -- Дамп данных таблицы `article_descriptions`
 --
 
-INSERT INTO `article_descriptions` (`id`, `article_id`, `language_id`, `title`, `description`, `meta_title`, `meta_description`, `keys`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'eng', 'sefwefesfsefsef', 'sesese', 'seesesf', 'fsefsef sefsefsef', NULL, '2020-09-07 05:53:24'),
-(2, 3, 2, 'рус', 'фівафіваіфва', 'іфва', 'фіва', 'фіваіфва фіва фіва', NULL, '2020-09-07 05:53:35');
+INSERT INTO `article_descriptions` (`id`, `article_id`, `language_id`, `title`, `description`, `description2`, `description3`, `meta_title`, `meta_description`, `keys`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 'Astronomy Binoculars A Great Alternative', '<p class=\"excert\">MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.</p>\r\n<p>Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed</p>\r\n<p>Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed</p>', '<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.</p>', '<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>\r\n<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>', 'sesese', 'seesesf', 'fsefsef sefsefsef', NULL, '2020-09-07 11:54:45'),
+(2, 3, 2, 'рус', 'фівафіваіфва', '<div>\r\n123\r\n</div>', NULL, 'іфва', 'фіва', 'фіваіфва фіва фіва', NULL, '2020-09-07 11:50:05');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ DROP TABLE IF EXISTS `article_images`;
 CREATE TABLE `article_images` (
   `id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
-  `path` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` json NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -95,7 +96,7 @@ CREATE TABLE `article_images` (
 --
 
 INSERT INTO `article_images` (`id`, `article_id`, `path`, `created_at`, `updated_at`) VALUES
-(3, 3, '[\"article-images\\\\September2020\\\\od2CyngPtS8hvFwGlSDw.jpg\"]', '2020-09-07 05:16:00', '2020-09-07 05:57:12');
+(7, 3, '[\"article-images\\\\September2020\\\\ZZVPvJ7JWvWFL5CzOAcl.jpg\", \"article-images\\\\September2020\\\\862BYwsgLddzqTPl4LVR.jpg\", \"article-images\\\\September2020\\\\JpqRfcBZ6hxOgZJ6F8Lu.jpg\", \"article-images\\\\September2020\\\\w3eeqsD7O8y3DA2LQUPC.jpg\"]', '2020-09-07 11:34:00', '2020-09-07 11:34:33');
 
 -- --------------------------------------------------------
 
@@ -165,29 +166,29 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
 (21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9),
 (22, 6, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(23, 6, 'main_image', 'multiple_images', 'Main Image', 1, 1, 1, 1, 1, 1, '{}', 2),
+(23, 6, 'main_image', 'image', 'Main Image', 0, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"750\",\"height\":null},\"quality\":\"100%\"}', 2),
 (24, 6, 'main_page', 'checkbox', 'Main Page', 1, 1, 1, 1, 1, 1, '{}', 3),
 (25, 6, 'sort', 'number', 'Sort', 1, 1, 1, 1, 1, 1, '{}', 4),
 (26, 6, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 5),
 (27, 6, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 6),
 (32, 8, 'article_id', 'number', 'Article Id', 1, 1, 1, 1, 1, 1, '{}', 1),
-(33, 8, 'path', 'multiple_images', 'Path', 1, 1, 1, 1, 1, 1, '{}', 2),
+(33, 8, 'path', 'multiple_images', 'Path', 1, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"360\",\"height\":\"350\"},\"quality\":\"100%\",\"upsize\":true}', 2),
 (34, 8, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 3),
 (35, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
 (36, 10, 'article_id', 'number', 'Article Id', 1, 1, 1, 1, 1, 1, '{}', 2),
 (37, 10, 'language_id', 'number', 'Language Id', 1, 1, 1, 1, 1, 1, '{}', 3),
 (38, 10, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 4),
-(39, 10, 'description', 'text', 'Description', 1, 1, 1, 1, 1, 1, '{}', 5),
-(40, 10, 'meta_title', 'text', 'Meta Title', 1, 1, 1, 1, 1, 1, '{}', 6),
-(41, 10, 'meta_description', 'text', 'Meta Description', 1, 1, 1, 1, 1, 1, '{}', 7),
-(42, 10, 'keys', 'text', 'Keys', 1, 1, 1, 1, 1, 1, '{}', 8),
-(43, 10, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 9),
-(44, 10, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10),
+(39, 10, 'description', 'rich_text_box', 'Description', 1, 1, 1, 1, 1, 1, '{}', 5),
+(40, 10, 'meta_title', 'text', 'Meta Title', 1, 1, 1, 1, 1, 1, '{}', 8),
+(41, 10, 'meta_description', 'text', 'Meta Description', 1, 1, 1, 1, 1, 1, '{}', 9),
+(42, 10, 'keys', 'text', 'Keys', 1, 1, 1, 1, 1, 1, '{}', 10),
+(43, 10, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 11),
+(44, 10, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 12),
 (45, 6, 'article_hasone_article_description_relationship', 'relationship', 'article_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleDescriptions\",\"table\":\"article_descriptions\",\"type\":\"hasOne\",\"column\":\"article_id\",\"key\":\"article_id\",\"label\":\"article_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
 (46, 6, 'article_hasone_article_image_relationship', 'relationship', 'article_images', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleImages\",\"table\":\"article_images\",\"type\":\"hasMany\",\"column\":\"article_id\",\"key\":\"article_id\",\"label\":\"article_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 8),
 (47, 8, 'article_image_belongsto_article_relationship', 'relationship', 'articles', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Articles\",\"table\":\"articles\",\"type\":\"belongsTo\",\"column\":\"article_id\",\"key\":\"id\",\"label\":\"slug\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 5),
-(48, 10, 'article_description_belongsto_article_relationship', 'relationship', 'articles', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Articles\",\"table\":\"articles\",\"type\":\"belongsTo\",\"column\":\"article_id\",\"key\":\"id\",\"label\":\"slug\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 11),
-(49, 10, 'article_description_belongsto_language_relationship', 'relationship', 'languages', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Language\",\"table\":\"languages\",\"type\":\"belongsTo\",\"column\":\"language_id\",\"key\":\"id\",\"label\":\"language\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12),
+(48, 10, 'article_description_belongsto_article_relationship', 'relationship', 'articles', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Articles\",\"table\":\"articles\",\"type\":\"belongsTo\",\"column\":\"article_id\",\"key\":\"id\",\"label\":\"slug\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 13),
+(49, 10, 'article_description_belongsto_language_relationship', 'relationship', 'languages', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Language\",\"table\":\"languages\",\"type\":\"belongsTo\",\"column\":\"language_id\",\"key\":\"id\",\"label\":\"language\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 14),
 (50, 11, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (51, 11, 'language', 'text', 'Language', 1, 1, 1, 1, 1, 1, '{}', 2),
 (52, 11, 'code', 'text', 'Code', 1, 1, 1, 1, 1, 1, '{}', 3),
@@ -196,9 +197,31 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (55, 11, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 6),
 (56, 11, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
 (57, 11, 'language_hasmany_article_description_relationship', 'relationship', 'article_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\ArticleDescriptions\",\"table\":\"article_descriptions\",\"type\":\"hasMany\",\"column\":\"language_id\",\"key\":\"id\",\"label\":\"id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 8),
-(58, 6, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 2),
+(58, 6, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true}}', 2),
 (59, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(60, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1);
+(60, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(61, 10, 'description2', 'rich_text_box', 'Description2', 0, 1, 1, 1, 1, 1, '{}', 6),
+(62, 10, 'description3', 'rich_text_box', 'Description3', 0, 1, 1, 1, 1, 1, '{}', 7),
+(63, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(64, 12, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 2),
+(65, 12, 'link', 'text', 'Link', 0, 1, 1, 1, 1, 1, '{}', 3),
+(66, 12, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 4),
+(67, 12, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(68, 14, 'portfolio_id', 'text', 'Portfolio Id', 1, 1, 1, 1, 1, 1, '{}', 1),
+(69, 14, 'language_id', 'number', 'Language Id', 1, 1, 1, 1, 1, 1, '{}', 2),
+(70, 14, 'description', 'rich_text_box', 'Description', 1, 1, 1, 1, 1, 1, '{}', 3),
+(71, 14, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 4),
+(72, 14, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(73, 12, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true}}', 3),
+(74, 15, 'portfolio_id', 'text', 'Portfolio Id', 1, 1, 1, 1, 1, 1, '{}', 1),
+(75, 15, 'path', 'multiple_images', 'Path', 1, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"360\",\"height\":\"350\"},\"quality\":\"100%\",\"upsize\":true}', 2),
+(76, 15, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 3),
+(77, 15, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
+(78, 12, 'portfolio_hasmany_portfolio_description_relationship', 'relationship', 'portfolio_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\PortfolioDescription\",\"table\":\"portfolio_descriptions\",\"type\":\"hasMany\",\"column\":\"portfolio_id\",\"key\":\"portfolio_id\",\"label\":\"portfolio_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 6),
+(79, 12, 'portfolio_hasone_portfolio_image_relationship', 'relationship', 'portfolio_images', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\PortfolioImage\",\"table\":\"portfolio_images\",\"type\":\"hasOne\",\"column\":\"portfolio_id\",\"key\":\"portfolio_id\",\"label\":\"portfolio_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
+(80, 14, 'portfolio_description_belongsto_portfolio_relationship', 'relationship', 'portfolios', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Portfolio\",\"table\":\"portfolios\",\"type\":\"belongsTo\",\"column\":\"portfolio_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 6),
+(81, 14, 'portfolio_description_belongsto_language_relationship', 'relationship', 'languages', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Language\",\"table\":\"languages\",\"type\":\"belongsTo\",\"column\":\"language_id\",\"key\":\"language\",\"label\":\"id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
+(82, 11, 'language_hasmany_portfolio_description_relationship', 'relationship', 'portfolio_descriptions', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\PortfolioDescription\",\"table\":\"portfolio_descriptions\",\"type\":\"hasMany\",\"column\":\"language_id\",\"key\":\"language_id\",\"label\":\"language_id\",\"pivot_table\":\"article_descriptions\",\"pivot\":\"0\",\"taggable\":null}', 9);
 
 -- --------------------------------------------------------
 
@@ -233,10 +256,13 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
-(6, 'articles', 'articles', 'Articles', 'Articles', NULL, 'App\\Articles', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:54:10', '2020-09-07 05:58:18'),
-(8, 'article_images', 'article-images', 'Article Image', 'Article Images', NULL, 'App\\ArticleImages', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:56:41', '2020-09-07 05:57:58'),
-(10, 'article_descriptions', 'article-descriptions', 'Article Description', 'Article Descriptions', NULL, 'App\\ArticleDescriptions', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:58:05', '2020-09-07 05:51:54'),
-(11, 'languages', 'languages', 'Language', 'Languages', NULL, 'App\\Language', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 05:03:17', '2020-09-07 05:53:12');
+(6, 'articles', 'articles', 'Articles', 'Articles', NULL, 'App\\Articles', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:54:10', '2020-09-07 11:38:48'),
+(8, 'article_images', 'article-images', 'Article Image', 'Article Images', NULL, 'App\\ArticleImages', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:56:41', '2020-09-07 11:33:49'),
+(10, 'article_descriptions', 'article-descriptions', 'Article Description', 'Article Descriptions', NULL, 'App\\ArticleDescriptions', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 04:58:05', '2020-09-07 11:50:40'),
+(11, 'languages', 'languages', 'Language', 'Languages', NULL, 'App\\Language', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 05:03:17', '2020-09-07 05:53:12'),
+(12, 'portfolios', 'portfolios', 'Portfolio', 'Portfolios', NULL, 'App\\Portfolio', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 12:06:06', '2020-09-07 12:14:59'),
+(14, 'portfolio_descriptions', 'portfolio-descriptions', 'Portfolio Description', 'Portfolio Descriptions', NULL, 'App\\PortfolioDescription', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-09-07 12:07:36', '2020-09-07 12:16:08'),
+(15, 'portfolio_images', 'portfolio-images', 'Portfolio Image', 'Portfolio Images', NULL, 'App\\PortfolioImage', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-09-07 12:13:23', '2020-09-07 12:13:23');
 
 -- --------------------------------------------------------
 
@@ -300,7 +326,8 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2020-09-01 10:07:41', '2020-09-01 10:07:41');
+(1, 'admin', '2020-09-01 10:07:41', '2020-09-01 10:07:41'),
+(2, 'Moderator', '2020-09-07 12:17:44', '2020-09-07 12:17:44');
 
 -- --------------------------------------------------------
 
@@ -339,12 +366,15 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 6, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.settings.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 13, '2020-09-01 10:07:41', '2020-09-07 12:22:08', 'voyager.settings.index', NULL),
 (11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 5, '2020-09-01 10:07:41', '2020-09-07 05:21:28', 'voyager.hooks', NULL),
-(12, 1, 'Articles', '', '_self', NULL, '#000000', NULL, 9, '2020-09-07 04:54:11', '2020-09-07 05:23:31', 'voyager.articles.index', 'null'),
-(14, 1, 'Article Images', '', '_self', NULL, NULL, NULL, 8, '2020-09-07 04:56:41', '2020-09-07 05:23:31', 'voyager.article-images.index', NULL),
-(15, 1, 'Article Descriptions', '', '_self', NULL, NULL, NULL, 7, '2020-09-07 04:58:05', '2020-09-07 05:23:30', 'voyager.article-descriptions.index', NULL),
-(16, 1, 'Languages', '', '_self', NULL, NULL, NULL, 10, '2020-09-07 05:03:17', '2020-09-07 05:23:31', 'voyager.languages.index', NULL);
+(12, 1, 'Articles', '', '_self', NULL, '#000000', NULL, 6, '2020-09-07 04:54:11', '2020-09-07 12:22:08', 'voyager.articles.index', 'null'),
+(14, 1, 'Article Images', '', '_self', NULL, NULL, NULL, 8, '2020-09-07 04:56:41', '2020-09-07 12:22:08', 'voyager.article-images.index', NULL),
+(15, 1, 'Article Descriptions', '', '_self', NULL, NULL, NULL, 7, '2020-09-07 04:58:05', '2020-09-07 12:22:08', 'voyager.article-descriptions.index', NULL),
+(16, 1, 'Languages', '', '_self', NULL, NULL, NULL, 12, '2020-09-07 05:03:17', '2020-09-07 12:22:08', 'voyager.languages.index', NULL),
+(17, 1, 'Portfolios', '', '_self', NULL, NULL, NULL, 9, '2020-09-07 12:06:06', '2020-09-07 12:22:08', 'voyager.portfolios.index', NULL),
+(18, 1, 'Portfolio Descriptions', '', '_self', NULL, NULL, NULL, 10, '2020-09-07 12:07:36', '2020-09-07 12:22:08', 'voyager.portfolio-descriptions.index', NULL),
+(19, 1, 'Portfolio Images', '', '_self', NULL, NULL, NULL, 11, '2020-09-07 12:13:23', '2020-09-07 12:22:08', 'voyager.portfolio-images.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -474,7 +504,22 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (48, 'read_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
 (49, 'edit_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
 (50, 'add_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
-(51, 'delete_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17');
+(51, 'delete_languages', 'languages', '2020-09-07 05:03:17', '2020-09-07 05:03:17'),
+(52, 'browse_portfolios', 'portfolios', '2020-09-07 12:06:06', '2020-09-07 12:06:06'),
+(53, 'read_portfolios', 'portfolios', '2020-09-07 12:06:06', '2020-09-07 12:06:06'),
+(54, 'edit_portfolios', 'portfolios', '2020-09-07 12:06:06', '2020-09-07 12:06:06'),
+(55, 'add_portfolios', 'portfolios', '2020-09-07 12:06:06', '2020-09-07 12:06:06'),
+(56, 'delete_portfolios', 'portfolios', '2020-09-07 12:06:06', '2020-09-07 12:06:06'),
+(57, 'browse_portfolio_descriptions', 'portfolio_descriptions', '2020-09-07 12:07:36', '2020-09-07 12:07:36'),
+(58, 'read_portfolio_descriptions', 'portfolio_descriptions', '2020-09-07 12:07:36', '2020-09-07 12:07:36'),
+(59, 'edit_portfolio_descriptions', 'portfolio_descriptions', '2020-09-07 12:07:36', '2020-09-07 12:07:36'),
+(60, 'add_portfolio_descriptions', 'portfolio_descriptions', '2020-09-07 12:07:36', '2020-09-07 12:07:36'),
+(61, 'delete_portfolio_descriptions', 'portfolio_descriptions', '2020-09-07 12:07:36', '2020-09-07 12:07:36'),
+(62, 'browse_portfolio_images', 'portfolio_images', '2020-09-07 12:13:23', '2020-09-07 12:13:23'),
+(63, 'read_portfolio_images', 'portfolio_images', '2020-09-07 12:13:23', '2020-09-07 12:13:23'),
+(64, 'edit_portfolio_images', 'portfolio_images', '2020-09-07 12:13:23', '2020-09-07 12:13:23'),
+(65, 'add_portfolio_images', 'portfolio_images', '2020-09-07 12:13:23', '2020-09-07 12:13:23'),
+(66, 'delete_portfolio_images', 'portfolio_images', '2020-09-07 12:13:23', '2020-09-07 12:13:23');
 
 -- --------------------------------------------------------
 
@@ -515,10 +560,15 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (19, 1),
 (20, 1),
 (21, 1),
+(21, 3),
 (22, 1),
+(22, 3),
 (23, 1),
+(23, 3),
 (24, 1),
+(24, 3),
 (25, 1),
+(25, 3),
 (26, 1),
 (27, 1),
 (27, 3),
@@ -559,7 +609,37 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (50, 1),
 (50, 3),
 (51, 1),
-(51, 3);
+(51, 3),
+(52, 1),
+(52, 3),
+(53, 1),
+(53, 3),
+(54, 1),
+(54, 3),
+(55, 1),
+(55, 3),
+(56, 1),
+(56, 3),
+(57, 1),
+(57, 3),
+(58, 1),
+(58, 3),
+(59, 1),
+(59, 3),
+(60, 1),
+(60, 3),
+(61, 1),
+(61, 3),
+(62, 1),
+(62, 3),
+(63, 1),
+(63, 3),
+(64, 1),
+(64, 3),
+(65, 1),
+(65, 3),
+(66, 1),
+(66, 3);
 
 -- --------------------------------------------------------
 
@@ -571,6 +651,7 @@ DROP TABLE IF EXISTS `portfolios`;
 CREATE TABLE `portfolios` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -892,7 +973,7 @@ ALTER TABLE `article_descriptions`
 -- AUTO_INCREMENT для таблицы `article_images`
 --
 ALTER TABLE `article_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `contacts`
@@ -904,13 +985,13 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT для таблицы `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT для таблицы `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `failed_jobs`
@@ -928,13 +1009,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT для таблицы `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблицы `migrations`
@@ -946,7 +1027,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT для таблицы `portfolios`

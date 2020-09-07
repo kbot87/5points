@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Articles;
 use Illuminate\Http\Request;
+use TCG\Voyager\Facades\Voyager;
 
 class BlogController extends Controller
 {
@@ -20,7 +21,8 @@ class BlogController extends Controller
         $blog = new Articles();
         $article = $blog->getArticleBySlug($slug);
 
-        return view('test', compact('article'));
+
+        return view('blog-article', compact('article'));
     }
 
 

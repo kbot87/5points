@@ -29,7 +29,7 @@
                         why you should have to spend money on boot camp when you can get the MCSE
                         study
                         materials yourself at a fraction.</p>
-                    <a href="{{ route('getArticle', $article->slug, app()->getLocale()) }}" class="blog_btn">View More</a>
+                    <a href="{{ route('getArticle', $article->slug) }}" class="blog_btn">View More</a>
                 </div>
             </div>
 

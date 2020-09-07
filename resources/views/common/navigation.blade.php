@@ -1,15 +1,15 @@
 <div class="side_menu">
     <div class="logo">
-        <a href="{{ route('home', app()->getLocale() ) }}">
+        <a href="{{ route('home' ) }}">
             <img src="{{ asset('img/logo.png') }}" alt="">
         </a>
     </div>
     <ul class="list menu-left">
         <li>
-            <a href="{{ route('home', app()->getLocale() ) }}">Home</a>
+            <a href="{{ route('home' ) }}">Home</a>
         </li>
         <li>
-            <a href="{{ route('about-us', app()->getLocale() ) }}">About</a>
+            <a href="{{ route('about-us' ) }}">About</a>
         </li>
         <li>
             <a href="project.html">Project</a>
@@ -21,10 +21,10 @@
             <a href="team.html">Team</a>
         </li>
         <li>
-            <a href="{{ route('article-list', app()->getLocale() ) }}">Blog</a>
+            <a href="{{ route('article-list' ) }}">Blog</a>
         </li>
         <li>
-            <a href="{{ route('contact-us', app()->getLocale() ) }}">Contact</a>
+            <a href="{{ route('contact-us' ) }}">Contact</a>
         </li>
     </ul>
     <ul class="list menu-left">

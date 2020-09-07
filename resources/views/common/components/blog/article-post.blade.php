@@ -1,7 +1,7 @@
 <div class="single-post row">
     <div class="col-lg-12">
         <div class="feature-img">
-            <img class="img-fluid" src="{{ asset('img/blog/feature-img1.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ Voyager::image($article->main_image) }}" alt="">
         </div>
     </div>
     <div class="col-lg-3 col-md-3">
@@ -27,62 +27,31 @@
         </div>
     </div>
     <div class="col-lg-9 col-md-9 blog_details">
-        <h2>Astronomy Binoculars A Great Alternative</h2>
-        <p class="excert">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand
-            why you should have to spend money
-            on boot camp when you can get the MCSE study materials yourself at a fraction.
-        </p>
-        <p>
-            Boot camps have its supporters and its detractors. Some people do not understand why
-            you should have to spend money on boot
-            camp when you can get the MCSE study materials yourself at a fraction of the camp
-            price.
-            However, who has the willpower to actually sit through a self-imposed MCSE training.
-            who
-            has the willpower to actually sit through a self-imposed
-        </p>
-        <p>
-            Boot camps have its supporters and its detractors. Some people do not understand why
-            you should have to spend money on boot
-            camp when you can get the MCSE study materials yourself at a fraction of the camp
-            price.
-            However, who has the willpower to actually sit through a self-imposed MCSE training.
-            who
-            has the willpower to actually sit through a self-imposed
-        </p>
+        <h2>@if($article->title)
+                {{ $article->title }}
+            @endif</h2>
+        @if($article->description)
+            {!! $article->description !!}
+        @endif
     </div>
     <div class="col-lg-12">
         <div class="quotes">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand
-            why you should have to spend money
-            on boot camp when you can get the MCSE study materials yourself at a fraction of the
-            camp
-            price. However, who has the willpower to actually sit through a self-imposed MCSE
-            training.
+            @if($article->description2)
+                {!! $article->description2 !!}
+            @endif
         </div>
         <div class="row">
-            <div class="col-6">
-                <img class="img-fluid" src="{{ asset('img/blog/post-img1.jpg') }}" alt="">
-            </div>
-            <div class="col-6">
-                <img class="img-fluid" src="{{ asset('img/blog/post-img2.jpg') }}" alt="">
-            </div>
+            @if(json_decode($article->path))
+                @foreach(json_decode($article->path) as $image)
+                    <div class="col-6">
+                        <img class="img-fluid" src="{{ Voyager::image($image) }}" alt="">
+                    </div>
+                @endforeach
+            @endif
             <div class="col-lg-12 mt-25">
-                <p>
-                    MCSE boot camps have its supporters and its detractors. Some people do not
-                    understand why you should have to spend money
-                    on boot camp when you can get the MCSE study materials yourself at a fraction
-                    of
-                    the camp price. However, who has the willpower.
-                </p>
-                <p>
-                    MCSE boot camps have its supporters and its detractors. Some people do not
-                    understand why you should have to spend money
-                    on boot camp when you can get the MCSE study materials yourself at a fraction
-                    of
-                    the camp price. However, who has the willpower.
-                </p>
+                @if($article->description3)
+                    {!!$article->description3!!}
+                @endif
             </div>
         </div>
     </div>

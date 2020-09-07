@@ -8,7 +8,7 @@
     <meta name="keywords" content="">
     <meta charset="UTF-8">
 
-    <title>5points</title>
+    <title>{{ setting('site.title') }}</title>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400,400i,500" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/linearicons.css') }}">

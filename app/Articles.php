@@ -5,9 +5,12 @@ namespace App;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use TCG\Voyager\Traits\Resizable;
 
 class Articles extends Model
 {
+
+    use Resizable;
     public function blog()
     {
         return $this->belongsTo('App\Blog');
@@ -78,6 +81,8 @@ class Articles extends Model
                 'article_images.path',
                 'article_descriptions.title',
                 'article_descriptions.description',
+                'article_descriptions.description2',
+                'article_descriptions.description3',
                 'article_descriptions.meta_title',
                 'article_descriptions.meta_description',
                 'article_descriptions.keys'

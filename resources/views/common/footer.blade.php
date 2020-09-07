@@ -15,14 +15,14 @@
                     <h6>Navigation Links</h6>
                     <div class="row">
                         <ul class="col footer-nav">
-                            <li><a href="{{ route('home', app()->getLocale() ) }}">Home</a></li>
+                            <li><a href="{{ route('home' ) }}">Home</a></li>
                             <li><a href="services.html">Services</a></li>
                             <li><a href="project.html">Project</a></li>
                         </ul>
                         <ul class="col footer-nav">
                             <li><a href="team-members.html">Team Members</a></li>
                             <li><a href="blog-single.html">Blog</a></li>
-                            <li><a href="{{ route('contact-us', app()->getLocale() ) }}">Contact</a></li>
+                            <li><a href="{{ route('contact-us' ) }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
