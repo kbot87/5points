@@ -11,6 +11,11 @@ class Articles extends Model
 {
 
     use Resizable;
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
     public function blog()
     {
         return $this->belongsTo('App\Blog');

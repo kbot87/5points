@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Articles;
-use App\Portfolio;
+use App\Portfolios;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $blog = new Articles();
-        $portfolio = new Portfolio();
+        $portfolio = new Portfolios();
 
         $articles = $blog->getMainPageArticles();
         $portfolios = $portfolio->getPortfolio();

@@ -79,7 +79,7 @@ $(function() {
     });
 
     /*----------------------------------------------------*/
-    /*  Portfolio carousel js
+    /*  Portfolios carousel js
     /*----------------------------------------------------*/
     $('.active-gallery-carousel').owlCarousel({
         items: 2,
