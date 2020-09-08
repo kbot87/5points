@@ -41,10 +41,10 @@
             @endif
         </div>
         <div class="row">
-            @if(json_decode($article->path))
-                @foreach(json_decode($article->path) as $image)
+            @if($article->images && !empty($article->images))
+                @foreach($article->images as $image)
                     <div class="col-6">
-                        <img class="img-fluid" src="{{ Voyager::image($image) }}" alt="">
+                        <img class="img-fluid" src="{{ Voyager::image($image->path) }}" alt="">
                     </div>
                 @endforeach
             @endif

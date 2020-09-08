@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Articles;
+use App\Blog;
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 

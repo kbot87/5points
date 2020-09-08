@@ -83,7 +83,6 @@ class Articles extends Model
                 'articles.main_image',
                 'articles.slug',
                 'articles.id',
-                'article_images.path',
                 'article_descriptions.title',
                 'article_descriptions.description',
                 'article_descriptions.description2',
@@ -94,9 +93,15 @@ class Articles extends Model
             ])
             ->where('articles.slug', $slug)
             ->where('article_descriptions.language_id', $languageId)
-            ->leftJoin('article_images', 'articles.id', 'article_images.article_id')
             ->leftJoin('article_descriptions', 'articles.id', 'article_descriptions.article_id')
             ->first();
+
+        $images = new ArticleImages();
+        if (!empty($article) && isset($article->id)){
+            $article->images = $images->getArticleImages($article->id);
+        } else {
+            return e('article not found');
+        }
 
         return $article;
     }
